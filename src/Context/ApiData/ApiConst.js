@@ -1,0 +1,1 @@
+export const domain = 'http://localhost/Denation_api/api'

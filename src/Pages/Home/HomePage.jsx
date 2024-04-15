@@ -9,14 +9,17 @@ import TimeLine from '../../Components/Timeline/TimeLine';
 import myContext from '../../Context/StateData/myContext';
 import Button from '../../Components/Button/Button';
 import DonationForm from '../../Components/Donation/DonationForm';
-// import ReactPlayer from 'react-player';
 import ReactPlayer from 'react-player/youtube'
 import { AnimatePresence, motion, useInView } from 'framer-motion';
-import { getAllRingTone } from '../../Context/ApiData/getAllRingTone';
+import { getBannerDetails } from '../../Context/ApiData/getBannerDetails';
+import { getHomeLink } from '../../Context/ApiData/getHomeLink';
+import Loader from '../../Components/Loader/Loader';
+import { getDailyProgramme } from '../../Context/ApiData/getDailyProgramme';
+import { getTopBlog } from '../../Context/ApiData/getTopBlog';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function HomePage() {
-  const { DailyTimelineData, BlogData } = useContext(myContext)
   const donation = useRef()
   const event = useRef()
 
@@ -24,7 +27,13 @@ function HomePage() {
   const isInViewEvent = useInView(event)
   const [showdonation, setShowdonation] = useState(false)
   const [showevent, setShowEvent] = useState(false)
+  const navigate = useNavigate()
 
+  // all api data
+  const [bannerData, setBannerData] = useState(null)
+  const [homeLinkData, setHomeLinkData] = useState(null)
+  const [dailyProgramData, setDailyProgramData] = useState(null)
+  const [homeBlogData, setHomeBlogData] = useState(null)
 
   useEffect(() => {
     if (isInViewDonation) {
@@ -35,26 +44,60 @@ function HomePage() {
     }
   }, [isInViewDonation, isInViewEvent])
 
-  useEffect(()=>{
-    const fetchData = async () => {
-      const newData = await getAllRingTone()
-      console.log(newData)
-    }
-    fetchData()
 
-  },[])
+  // api calling data
+  useEffect(() => {
+    const banner = async () => {
+      const result = await getBannerDetails()
+      console.log('banner', result)
+      if (result.IsSuccessful) {
+        setBannerData(result.Result)
+      }
+    }
+
+    const homelink = async () => {
+      const result = await getHomeLink()
+      console.log('homelink', result)
+      if (result.IsSuccessful) {
+        setHomeLinkData(result.Result)
+      }
+    }
+
+    const dailyProgram = async () => {
+      const result = await getDailyProgramme()
+      console.log('dailyprogram', result)
+      if (result.IsSuccessful) {
+        setDailyProgramData(result.Result)
+      }
+    }
+
+    const topBlog = async () => {
+      const result = await getTopBlog(3)
+      console.log('homeblog', result)
+      if (result.IsSuccessful) {
+        setHomeBlogData(result.Result)
+      }
+    }
+
+    banner()
+    homelink()
+    dailyProgram()
+    topBlog()
+
+  }, [])
+
 
   return (
     <div className=''>
       <div className='bg-gradient-to-b from-dark-brown to-light-brown md:pt-[100px]  h-[50vh] md:h-[70vh] w-full'>
         <div className='flex justify-center h-[50vh] md:h-[70vh] md:w-[90vw]  mx-auto'>
-          <ImageSlider />
+          {bannerData && <ImageSlider data={bannerData} />}
         </div>
       </div>
       <div className='flex flex-col gap-10 justify-center items-center py-10 md:mt-[100px] overflow-hidden mx-auto'>
         {/* card section */}
         <div className='w-[90vw] md:w-[70vw] max-w-[1024px]'>
-          <div className='grid md:grid-cols-2 grid-cols-1 gap-2 p-5'>
+          <div className='grid md:grid-cols-2 grid-cols-1 gap-2 md:p-5'>
             <div className=' text-start'>
               <h1 className='text-light-red font-bold tracking-wider'>WELCOME</h1>
               <p className='text-4xl leading-snug font-lora text-dark-brown font-black'>Experience visit at <br /> Our Khodaldham <br /> Temple</p>
@@ -65,7 +108,7 @@ function HomePage() {
               <p>Stay at the Ashram and immerse yourself in our wonderful yogic lifestyle program with other like-minded members.</p>
             </div>
           </div>
-          <div className='flex flex-col lg:flex-row justify-center w-full gap-5  mt-5 px-5'>
+          <div className='flex flex-col lg:grid grid-cols-3 overflow-hidden justify-center  w-full gap-5  mt-5 md:px-5'>
             <div className='justify-self-center'>
               <Card img={activityImg} title={'Campus Activity'} desc={'At Temple Campus, vibrant student life thrives with diverse activities. Engage in clubs, events, and sports, fostering a sense of community. Unleash your potential through a dynamic blend of academics and extracurriculars, making every day an opportunity for growth and enrichment.'} />
             </div>
@@ -79,7 +122,7 @@ function HomePage() {
         </div>
 
         {/* live */}
-        <div className='w-[90vw] md:w-[70vw] max-w-[1024px] p-5'>
+        <div className='w-[90vw] md:w-[70vw] max-w-[1024px] md:p-5'>
           <div className=' text-start'>
             <h1 className='text-light-red font-bold tracking-wider'>Live</h1>
           </div>
@@ -95,8 +138,16 @@ function HomePage() {
                   >
                     <div className=' text-start'>
                       <p className='text-4xl leading-snug font-lora text-dark-brown font-black'>Darshan</p>
-                      <div className='w-full h-[300px] border-2 border-light-red'>
-                        <ReactPlayer url='https://www.youtube.com/watch?v=ac0DEUuHjeE' width='100%' height='100%' />
+                      <div className='w-full h-[300px] border-2 border-light-red flex justify-center items-center'>
+                        {homeLinkData ?
+                          homeLinkData.map((item) => (
+                            item.LinkType === 'darshan' && <ReactPlayer key={item.ID} url={item.Link} width='100%' height='100%' />
+                          ))
+                          :
+                          <div className='flex justify-center items-center w-full'>
+                            <Loader />
+                          </div>
+                        }
                       </div>
                     </div>
                   </motion.div>
@@ -116,7 +167,15 @@ function HomePage() {
                     <div className=' text-start'>
                       <p className='text-4xl leading-snug font-lora text-dark-brown font-black'>Event</p>
                       <div className='w-full h-[300px] border-2 border-light-red'>
-                        <ReactPlayer url='https://www.youtube.com/watch?v=ac0DEUuHjeE' width='100%' height='100%' />
+                        {homeLinkData ?
+                          homeLinkData.map((item) => (
+                            item.LinkType === 'event' && <ReactPlayer key={item.ID} url={item.Link} width='100%' height='100%' />
+                          ))
+                          :
+                          <div className='flex justify-center items-center w-full'>
+                            <Loader />
+                          </div>
+                        }
                       </div>
                     </div>
                   </motion.div>
@@ -133,34 +192,54 @@ function HomePage() {
             <p className='text-2xl md:text-4xl leading-snug font-lora text-dark-brown font-black'>Khodaldham Temple Daily Activity</p>
           </div>
           <div className='py-5'>
-            <TimeLine data={DailyTimelineData} />
+            <TimeLine data={dailyProgramData} />
           </div>
         </div>
 
         {/* blog section */}
         <div className='w-[100vw]'>
           <div className='flex md:h-[500px] lg:h-[700px] md:flex-row flex-col overflow-hidden text-start'>
-            <div className='w-full h-[250px] md:h-auto flex justify-center items-center  relative'>
-              <img src={BlogData[0].img} alt="blog thumbnail" className='h-full w-full' />
-              <div className='absolute bottom-0 left-0 right-0 p-10 bg-gradient-to-t from-dark-brown to-[rgba(0,0,0,0)]'>
-                <h1 className='font-bold text-cream font-lora truncate  text-xl  lg:text-3xl'>{BlogData[0].title}</h1>
-                <Button name={'Read More'} className={'bg-red text-light-cream hover:bg-dark-brown border border-cream  duration-500 mt-3'} />
+            {homeBlogData && homeBlogData.length > 0 ?
+              <div className='w-full h-[250px] md:h-auto flex justify-center items-center  relative'>
+                <img src={`data:image/png;base64,${homeBlogData[0].BlogHeaderImage}`} alt="blog thumbnail" className='h-full w-full object-cover' />
+                <div className='absolute bottom-0 left-0 right-0 p-10 bg-gradient-to-t from-dark-brown to-[rgba(0,0,0,0)]'>
+                  <h1 className='font-bold text-cream font-lora truncate  text-xl  lg:text-3xl'>{homeBlogData[0].BlogHeader}</h1>
+                  <Button name={'Read More'} className={'bg-red text-light-cream hover:bg-dark-brown border border-cream  duration-500 mt-3'} onClick={() => navigate(`/blogdetails/${homeBlogData[0].Id}`)} />
+                </div>
               </div>
-            </div>
+              :
+              <div className='flex justify-center items-center w-full'>
+                <Loader />
+              </div>
+            }
             <div className='flex flex-col w-full'>
-              <div className='w-full h-[250px] lg:h-[350px] flex justify-center items-center relative'>
-                <img src={BlogData[1].img} alt="blog thumbnail" className=' w-full h-full' />
-                <div className='absolute bottom-0 left-0 right-0 p-10 bg-gradient-to-t from-dark-brown to-[rgba(0,0,0,0)]'>
-                  <h1 className='font-bold text-cream font-lora truncate text-xl lg:text-3xl'>{BlogData[1].title}</h1>
-                  <Button name={'Read More'} className={'bg-red text-light-cream hover:bg-dark-brown border border-cream  duration-500 mt-3'} />
-                </div>
+              <div className='w-full h-[250px] lg:h-[350px] overflow-hidden flex justify-center items-center relative'>
+                {homeBlogData && homeBlogData.length == 3 ?
+                  <div className='relative overflow-hidden w-full h-full'>
+                    <img src={`data:image/png;base64,${homeBlogData[1].BlogHeaderImage}`} alt="blog thumbnail" className=' w-full h-full object-cover' />
+                    <div className='absolute bottom-0 left-0 right-0 p-10 bg-gradient-to-t from-dark-brown to-[rgba(0,0,0,0)]'>
+                      <h1 className='font-bold text-cream font-lora truncate text-xl lg:text-3xl'>{homeBlogData[2].BlogHeader}</h1>
+                      <Button name={'Read More'} className={'bg-red text-light-cream hover:bg-dark-brown border border-cream  duration-500 mt-3'} onClick={() => navigate(`/blogdetails/${homeBlogData[1].Id}`)} />
+                    </div>
+                  </div>
+                  :
+                  <Loader />
+                }
               </div>
-              <div className='w-full h-[250px] lg:h-[350px] flex justify-center items-center relative'>
-                <img src={BlogData[2].img} alt="blog thumbnail" className=' w-full h-full ' />
-                <div className='absolute bottom-0 left-0 right-0 p-10 bg-gradient-to-t from-dark-brown to-[rgba(0,0,0,0)]'>
-                  <h1 className='font-bold text-cream font-lora truncate text-xl  lg:text-3xl'>{BlogData[2].title}</h1>
-                  <Button name={'Read More'} className={'bg-red text-light-cream hover:bg-dark-brown border border-cream  duration-500 mt-3'} />
-                </div>
+              <div className='w-full h-[250px] lg:h-[350px] overflow-hidden flex justify-center items-center relative'>
+                {homeBlogData && homeBlogData.length == 3 ?
+                  <div className='relative overflow-hidden w-full h-full'>
+                    <img src={`data:image/png;base64,${homeBlogData[2].BlogHeaderImage}`} alt="blog thumbnail" className=' w-full h-full object-cover' />
+                    <div className='absolute bottom-0 left-0 right-0 p-10 bg-gradient-to-t from-dark-brown to-[rgba(0,0,0,0)]'>
+                      <h1 className='font-bold text-cream font-lora truncate text-xl lg:text-3xl'>{homeBlogData[2].BlogHeader}</h1>
+                      <Button name={'Read More'} className={'bg-red text-light-cream hover:bg-dark-brown border border-cream  duration-500 mt-3'} onClick={() => navigate(`/blogdetails/${homeBlogData[2].Id}`)} />
+                    </div>
+                  </div>
+                  :
+                  <div className='flex justify-center items-center w-full'>
+                    <Loader />
+                  </div>
+                }
               </div>
             </div>
           </div>
@@ -202,7 +281,7 @@ function HomePage() {
                     exit={{ opacity: 0, x: '100%' }}
                     transition={{ duration: 1, ease: 'easeOut' }}
                   >
-                    <div className='md:p-5 mb-10'>
+                    <div className='md:p-5 md:mb-10'>
                       <DonationForm />
                     </div>
                   </motion.div>

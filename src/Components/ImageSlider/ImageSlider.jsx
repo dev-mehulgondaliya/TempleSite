@@ -3,7 +3,7 @@ import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Transition } from '@headlessui/react';
 
-function ImageSlider() {
+function ImageSlider({ data }) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const images = [
@@ -16,11 +16,11 @@ function ImageSlider() {
 
 
     const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
     };
 
     const handlePrev = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + data.length) % data.length);
     };
 
 
@@ -28,7 +28,7 @@ function ImageSlider() {
 
         <div className='flex justify-center items-center  w-full h-full relative bg-dark-brown overflow-hidden'>
             {
-                images.map((image, index) => (
+                data.map((image, index) => (
                     <AnimatePresence key={index}>
                         {index === currentIndex && (
                             <motion.div
@@ -39,7 +39,12 @@ function ImageSlider() {
                                 className='w-full h-full absolute'
                                 key={index}
                             >
-                                <div className='w-full h-full bg-cover bg-no-repeat bg-center ' style={{boxShadow : 'inset 0 30px 200px 100px #49263D', backgroundImage : `url(${image})`}}>
+                                <div className='w-full h-full bg-cover flex flex-col relative justify-end items-center bg-no-repeat bg-center shadow-[inset_0px_20px_200px_50px_#49263D] md:shadow-[inset_0px_20px_200px_50px_#49263D]' style={{ backgroundImage: `url(data:image/png;base64,${image.ImageData})` }}>
+                                    <div className='bg-gradient-to-b from-[rgba(0,0,0,0)] to-[#49263D] flex justify-center  absolute w-full  md:pb-5'>
+                                        <div className='text-xl md:text-2xl font-lora px-5 md:px-5 max-w-[1024px] pb-20 md:pb-10  flex flex-wrap  text-cream'>
+                                            <h1>{image.ImageDescriptions}</h1>
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.div>
                         )}

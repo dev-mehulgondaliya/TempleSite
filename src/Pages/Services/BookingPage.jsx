@@ -1,5 +1,5 @@
 import React, {  useState } from 'react'
-import headerImg from '../../Assets/services/krishna.jfif'
+import headerImg from '../../Assets/services/temple.jpg'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import Button from '../../Components/Button/Button'
 import { RiArrowDownSLine } from 'react-icons/ri'

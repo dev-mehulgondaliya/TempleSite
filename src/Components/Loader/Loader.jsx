@@ -1,8 +1,9 @@
+import { CircularProgress } from '@mui/material'
 import React from 'react'
 
 function Loader() {
   return (
-    <div>Loader...</div>
+    <div><CircularProgress color="inherit" /></div>
   )
 }
 

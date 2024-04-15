@@ -30,9 +30,17 @@ function DonationPage() {
       </div>
       <div className='w-[90vw] md:w-[70vw] max-w-[1024px] mx-auto md:p-5 py-10'>
         <div className='flex flex-col gap-5'>
-          <div className='w-full h-[300px]'>
-            <img src={templeImg} alt="" className='object-cover w-full h-full' />
-          </div>
+          <motion.div
+            initial={{ opacity: 0  }}
+            animate={{ opacity: 1}}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: 'easeOut' }}
+
+          >
+            <div className='w-full h-[300px]'>
+              <img src={templeImg} alt="" className='object-cover w-full h-full' />
+            </div>
+          </motion.div>
           <div className='grid md:grid-cols-2 grid-cols-1 gap-5 md:gap-2'>
             <div ref={donation}>
               <AnimatePresence>

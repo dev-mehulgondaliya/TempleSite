@@ -59,7 +59,7 @@ function AboutTemplePage() {
         </div>
 
         <div className='flex gap-4 justify-center flex-wrap mt-5'>
-          <NavLink to='/abouttemple' className='capitalize bg-cream text-light-brown hover:bg-transparent hover:text-light-red p-2 px-3 rounded-full duration-500'>About temple</NavLink>
+          <NavLink to='/abouttrust' className='capitalize bg-cream text-light-brown hover:bg-transparent hover:text-light-red p-2 px-3 rounded-full duration-500'>About trust</NavLink>
           <NavLink to='/history' className='capitalize bg-cream text-light-brown hover:bg-transparent hover:text-light-red p-2 px-3 rounded-full duration-500'>history</NavLink>
           <NavLink to='/events' className='capitalize bg-cream text-light-brown hover:bg-transparent hover:text-light-red p-2 px-3 rounded-full duration-500'>event</NavLink>
           <NavLink to='/campusfacility' className='capitalize bg-cream text-light-brown hover:bg-transparent hover:text-light-red px-3 p-2 rounded-full duration-500'>campus facility</NavLink>

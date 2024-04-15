@@ -36,17 +36,17 @@ function MobileNavbar() {
                             />
                         </li>
                         <li className='w-full flex justify-between'>
-                            <NavLink onClick={(e) => {setIsActive(e.target.id);setIsOpen(false)}} id='Home' to='/' className={`${isActive === 'Home' ? 'text-light-brown' : 'text-dark-brown'}`}>
+                            <NavLink onClick={(e) => { setIsActive(e.target.id); setIsOpen(false) }} id='Home' to='/' className={`${isActive === 'Home' ? 'text-light-brown' : 'text-dark-brown'}`}>
                                 Home
                             </NavLink>
                         </li>
                         <li className='w-full flex justify-between'>
-                            <NavLink onClick={(e) => {setIsActive(e.target.id);setIsOpen(false)}} id='Event' to='/events' className={`${isActive === 'Event' ? 'text-light-brown' : 'text-dark-brown'}`}>
+                            <NavLink onClick={(e) => { setIsActive(e.target.id); setIsOpen(false) }} id='Event' to='/events' className={`${isActive === 'Event' ? 'text-light-brown' : 'text-dark-brown'}`}>
                                 Event
                             </NavLink>
                         </li>
                         <li className='w-full flex flex-col  justify-between'>
-                            <div onClick={(e) => { isActive === 'Services' ? setIsActive('') : setIsActive(e.target.id) }} id='Services' className={`${isActive === 'Services' ? 'text-light-brown' : 'text-dark-brown w-full'} flex justify-between items-center`}>
+                            <button onClick={(e) => { isActive === 'Services' ? setIsActive('') : setIsActive(e.target.id) }} id='Services' className={`${isActive === 'Services' ? 'text-light-brown' : 'text-dark-brown w-full'} flex justify-between items-center`}>
                                 Services
                                 <motion.div
                                     initial={{ opacity: 1 }}
@@ -56,7 +56,7 @@ function MobileNavbar() {
                                 >
                                     {isActive === 'Services' ? null : <RiArrowDownSLine />}
                                 </motion.div>
-                            </div>
+                            </button>
                             <Transition
                                 show={isActive === 'Services' ? true : false}
                                 enter="transition-transform duration-100 ease-out"
@@ -69,17 +69,17 @@ function MobileNavbar() {
                                 <div className="bg-gray-200  mt-2">
                                     <ul className='flex flex-col gap-5  justify-center items-end'>
                                         <li className='flex'>
-                                            <NavLink onClick={() => {setIsActive('');setIsOpen(false)}} to='/donation' className='text-dark-brown hover:text-light-brown' >
+                                            <NavLink onClick={() => { setIsActive(''); setIsOpen(false) }} to='/donation' className='text-dark-brown hover:text-light-brown' >
                                                 Donation
                                             </NavLink>
                                         </li>
                                         <li className='flex'>
-                                            <NavLink onClick={() => {setIsActive('');setIsOpen(false)}} to='/booking' className='text-dark-brown hover:text-light-brown' >
+                                            <NavLink onClick={() => { setIsActive(''); setIsOpen(false) }} to='/booking' className='text-dark-brown hover:text-light-brown' >
                                                 Booking
                                             </NavLink>
                                         </li>
                                         <li className='flex'>
-                                            <NavLink onClick={() => {setIsActive('');setIsOpen(false)}} to='/magazine' className='text-dark-brown hover:text-light-brown' >
+                                            <NavLink onClick={() => { setIsActive(''); setIsOpen(false) }} to='/magazine' className='text-dark-brown hover:text-light-brown' >
                                                 Magazine
                                             </NavLink>
                                         </li>
@@ -112,11 +112,16 @@ function MobileNavbar() {
                                 <div className="bg-gray-200 mt-2">
                                     <ul className='flex flex-col gap-5 justify-center items-end '>
                                         <li className=''>
-                                            <NavLink onClick={() => {setIsActive('');setIsOpen(false)}} to='/blog' className='text-dark-brown hover:text-light-brown' >
+                                            <NavLink onClick={() => { setIsActive(''); setIsOpen(false) }} to='/blog' className='text-dark-brown hover:text-light-brown' >
                                                 Blog
                                             </NavLink>
                                         </li>
                                         <li className=''>
+                                            <NavLink onClick={() => { setIsActive(''); setIsOpen(false) }} to='/download' className='text-dark-brown hover:text-light-brown' >
+                                                Download
+                                            </NavLink>
+                                        </li>
+                                        {/* <li className=''>
                                             <NavLink onClick={() => {setIsActive('');setIsOpen(false)}} to='/photogallery' className='text-dark-brown hover:text-light-brown' >
                                                 Photos
                                             </NavLink>
@@ -125,9 +130,9 @@ function MobileNavbar() {
                                             <NavLink onClick={() => {setIsActive('');setIsOpen(false)}} to='/videogallery' className='text-dark-brown hover:text-light-brown' >
                                                 Videos
                                             </NavLink>
-                                        </li>
+                                        </li> */}
                                         <li className=''>
-                                            <NavLink onClick={() => {setIsActive('');setIsOpen(false)}} to='/pressrelease' className='text-dark-brown hover:text-light-brown' >
+                                            <NavLink onClick={() => { setIsActive(''); setIsOpen(false) }} to='/pressrelease' className='text-dark-brown hover:text-light-brown' >
                                                 Press Release
                                             </NavLink>
                                         </li>
@@ -159,27 +164,27 @@ function MobileNavbar() {
                                 <div className="bg-gray-200 mt-2">
                                     <ul className='flex flex-col gap-5 justify-center items-end '>
                                         <li className=''>
-                                            <NavLink onClick={() => {setIsActive('');setIsOpen(false)}} to='/abouttrust' className='text-dark-brown hover:text-light-brown' >
+                                            <NavLink onClick={() => { setIsActive(''); setIsOpen(false) }} to='/abouttrust' className='text-dark-brown hover:text-light-brown' >
                                                 About Trust
                                             </NavLink>
                                         </li>
                                         <li className=''>
-                                            <NavLink onClick={() => {setIsActive('');setIsOpen(false)}} to='/abouttemple' className='text-dark-brown hover:text-light-brown' >
+                                            <NavLink onClick={() => { setIsActive(''); setIsOpen(false) }} to='/abouttemple' className='text-dark-brown hover:text-light-brown' >
                                                 About Temple
                                             </NavLink>
                                         </li>
                                         <li className=''>
-                                            <NavLink onClick={() => {setIsActive('');setIsOpen(false)}} to='/campusfacility' className='text-dark-brown hover:text-light-brown' >
+                                            <NavLink onClick={() => { setIsActive(''); setIsOpen(false) }} to='/campusfacility' className='text-dark-brown hover:text-light-brown' >
                                                 Campus Facility
                                             </NavLink>
                                         </li>
                                         <li className=''>
-                                            <NavLink onClick={() => {setIsActive('');setIsOpen(false)}} to='/history' className='text-dark-brown hover:text-light-brown' >
+                                            <NavLink onClick={() => { setIsActive(''); setIsOpen(false) }} to='/history' className='text-dark-brown hover:text-light-brown' >
                                                 History
                                             </NavLink>
                                         </li>
                                         <li className=''>
-                                            <NavLink onClick={() => {setIsActive('');setIsOpen(false)}} to='/howtoreach' className='text-dark-brown hover:text-light-brown' >
+                                            <NavLink onClick={() => { setIsActive(''); setIsOpen(false) }} to='/howtoreach' className='text-dark-brown hover:text-light-brown' >
                                                 How to reach
                                             </NavLink>
                                         </li>
@@ -188,13 +193,13 @@ function MobileNavbar() {
                             </Transition>
                         </li>
                         <li className='w-full flex justify-between'>
-                            <NavLink onClick={(e) => {setIsActive(e.target.id);setIsOpen(false)}} id='Contact' to='/contact' className={`${isActive === 'Contact' ? 'text-light-brown' : 'text-dark-brown'}`}>
+                            <NavLink onClick={(e) => { setIsActive(e.target.id); setIsOpen(false) }} id='Contact' to='/contact' className={`${isActive === 'Contact' ? 'text-light-brown' : 'text-dark-brown'}`}>
                                 Contact
                             </NavLink>
                         </li>
                     </ul>
                 </div>
-            </motion.div>
+            </motion.div >
         </>
     )
 }

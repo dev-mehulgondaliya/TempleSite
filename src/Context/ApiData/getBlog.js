@@ -1,6 +1,7 @@
 import { domain } from "./ApiConst";
 
 export const getBlog = async (start, end) => {
+    console.log(start,end)
     try {
         const res = await fetch(`${domain}/getBlog?startRow=${start}&endRow=${end}`);
 

@@ -16,7 +16,7 @@ function Card({ img, title, desc, text }) {
   }, [isInViewCard])
 
   return (
-    <div ref={card} className='overflow-hidden'>
+    <div ref={card} className='overflow-hidden h-full'>
       <AnimatePresence>
         {showCard &&
           <motion.div
@@ -24,8 +24,9 @@ function Card({ img, title, desc, text }) {
             animate={{ opacity: 1, y: '0' }}
             exit={{ opacity: 0, y: '100%' }}
             transition={{ duration: 1, ease: 'easeOut' }}
+            className='h-full'
           >
-            <div className='duration-500 hover:shadow-light-red hover:shadow-[0px_5px_25px] min-w-[300px] min-h-[270px] h-[100%] p-5 bg-white '>
+            <div className='duration-500 hover:shadow-light-red hover:shadow-[0px_5px_25px] h-full p-5 bg-white '>
               <div className='h-[150px] w-full flex justify-center items-center'>
                 <img src={img} alt='icon' className='w-[100px] h-[100px]' />
               </div>

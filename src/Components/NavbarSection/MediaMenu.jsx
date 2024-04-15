@@ -49,6 +49,17 @@ function MediaMenu({isActive, setIsActive}) {
                         <Menu.Item>
                             {({ active }) => (
                                 <button
+                                    onClick={() => {navigate('/download') ; setIsActive('')}}
+                                    className={`${active ? 'text-light-red' : 'text-cream'
+                                        } group flex rounded-md items-center hover:text-light-red w-full px-2 py-2 text-sm`}
+                                >
+                                    Download
+                                </button>
+                            )}
+                        </Menu.Item>
+                        {/* <Menu.Item>
+                            {({ active }) => (
+                                <button
                                     onClick={() => {navigate('/photogallery') ; setIsActive('')}}
                                     className={`${active ? 'text-light-red' : 'text-cream'
                                         } group flex rounded-md items-center hover:text-light-red w-full px-2 py-2 text-sm`}
@@ -56,8 +67,8 @@ function MediaMenu({isActive, setIsActive}) {
                                     Photos
                                 </button>
                             )}
-                        </Menu.Item>
-                        <Menu.Item>
+                        </Menu.Item> */}
+                        {/* <Menu.Item>
                             {({ active }) => (
                                 <button
                                     onClick={() => {navigate('/videogallery') ; setIsActive('')}}
@@ -67,7 +78,7 @@ function MediaMenu({isActive, setIsActive}) {
                                     Videos
                                 </button>
                             )}
-                        </Menu.Item>
+                        </Menu.Item> */}
                         <Menu.Item>
                             {({ active }) => (
                                 <button

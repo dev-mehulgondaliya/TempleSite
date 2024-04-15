@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import headerImg from '../../Assets/services/krishna.jfif'
+import headerImg from '../../Assets/services/magazineheader.jpg'
 import magazineImg from '../../Assets/services/magazine.jpg'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import Button from '../../Components/Button/Button'

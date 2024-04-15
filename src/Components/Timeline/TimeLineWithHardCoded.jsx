@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { AnimatePresence, useInView, motion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 
-function TimeLine({ data }) {
+function TimeLineWithHardCoded({ data }) {
     const timeline = useRef()
     const isInViewTimeline = useInView(timeline)
     const [showTimeline, setShowTimeline] = useState(false)
@@ -30,7 +30,7 @@ function TimeLine({ data }) {
                                     <div key={index} className={`flex justify-center gap-5 md:gap-10 ${index % 2 != 0 && 'md:flex-row-reverse'}`}>
                                         <div className='hidden md:flex justify-center items-center w-[400px] h-[200px] my-3 overflow-hidden'>
                                             <img
-                                                src={`data:image/png;base64,${item.ImageData}`}
+                                                src={item.ImageData}
                                                 alt="photo"
                                                 className='border-2 border-light-red w-full h-full object-cover hover:scale-125 transition-transform duration-300'
                                             />
@@ -59,4 +59,4 @@ function TimeLine({ data }) {
     )
 }
 
-export default TimeLine
+export default TimeLineWithHardCoded

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom'
 import HomePage from '../Pages/Home/HomePage'
 import Page404 from '../Pages/Page404/Page404'
 import AboutTemplePage from '../Pages/About/AboutTemplePage'
@@ -19,6 +19,7 @@ import MagazinePage from '../Pages/Services/MagazinePage'
 import ContactPage from '../Pages/Contact/ContactPage'
 import Layout from '../Components/Layout/Layout'
 import Download from '../Pages/Download/download'
+import ReletedBlog from '../Pages/Blog/ReletedBlog'
 
 function RouterPage() {
 
@@ -42,14 +43,15 @@ function RouterPage() {
 
           {/* blog */}
           <Route path='/blog' element={<BlogPage />} />
+          <Route path='/reletedblog/:tag' element={<ReletedBlog />} />
           <Route path='/blogdetails/:id' element={<BlogDetails />} />
 
           {/* events */}
           <Route path='/events' element={<EventPage />} />
 
           {/* gallery */}
-          <Route path='/videogallery' element={<VideoGallery />} />
-          <Route path='/photogallery' element={<PhotoGallery />} />
+          {/* <Route path='/videogallery' element={<VideoGallery />} /> */}
+          {/* <Route path='/photogallery' element={<PhotoGallery />} /> */}
 
           {/* media */}
           <Route path='/pressrelease' element={<PressReleasePage />} />

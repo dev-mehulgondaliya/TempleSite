@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '../NavbarSection/navbar'
 import Footer from '../FooterSection/Footer'
+import FloatingButton from '../FloatingButton/FloatingButton'
 
 function Layout({ children }) {
     return (
@@ -10,6 +11,7 @@ function Layout({ children }) {
                 {children}
             </div>
             <Footer />
+            <FloatingButton />
         </div>
     )
 }
